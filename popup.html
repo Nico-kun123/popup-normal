@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Popup (html, css, js)</title>
+    <style>
+      :root {
+        --main-font: "Open sans";
+        --elem-margin: 1em;
+        --btn-color: cyan;
+        --btn-color-hover: rgb(17, 217, 217);
+        --cancel-btn-color: rgb(255, 0, 0);
+        --cancel-btn-color-hover: rgb(202, 25, 25);
+      }
+      *,
+      *::after,
+      *::before {
+        margin: 0;
+        font-family: var(--main-font);
+      }
+      .container {
+        /* width: 100vw; */
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+
+      .popup {
+        /* width: 100%; */
+        /* height: fit-content; */
+        max-width: 500px;
+        min-width: 250px;
+        border: 3px double black;
+        background: white;
+        margin: auto;
+        padding: 1em;
+        z-index: 2;
+      }
+
+      button {
+        align-self: center;
+        background-color: var(--btn-color);
+        border: 2px thin rgb(0, 0, 0);
+        border-radius: 12px;
+        font-weight: bolder;
+        font-size: medium;
+        padding: 5px;
+      }
+
+      .cancel {
+        background-color: var(--cancel-btn-color);
+      }
+      .cancel:hover {
+        background-color: var(--cancel-btn-color-hover);
+        color: white;
+      }
+      button:hover {
+        background-color: var(--btn-color-hover);
+      }
+      #title {
+        text-align: center;
+      }
+      .hide {
+        /* display: none; */
+      }
+      .formResults {
+        background-color: aqua;
+        align-self: center;
+        width: auto;
+        font-weight: bold;
+        padding: auto;
+        /* margin: auto; */
+      }
+      input,
+      select {
+        margin-bottom: var(--elem-margin);
+      }
+
+      /* Убрать стрелки у input number */
+      input::-webkit-outer-spin-button,
+      input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+      input[type="number"] {
+        -moz-appearance: textfield;
+      }
+
+      input[type="text"],
+      input[type="password"],
+      input[type="number"],
+      select {
+        width: 100%;
+        border-radius: 12px;
+        border-width: 1px;
+        padding: 5px 0 5px 5px;
+
+        margin-right: 5px;
+      }
+
+      .wrapper {
+        display: flex;
+
+        justify-content: center;
+        align-self: center;
+      }
+
+      @media (min-width: 320px) {
+        .flexBox {
+          display: flex;
+          flex-direction: column;
+        }
+
+        .wrapper {
+          flex-direction: column;
+        }
+        .btn {
+          width: 100%;
+          margin-bottom: calc(var(--elem-margin) / 2);
+        }
+        .btn:last-child {
+          margin-bottom: 0;
+        }
+      }
+
+      @media (min-width: 580px) {
+        .flexBox {
+          display: flex;
+          flex-direction: row;
+          flex-grow: 2;
+          flex-wrap: wrap;
+        }
+
+        label {
+          width: 100%;
+        }
+        .btn {
+          padding: 5px;
+          width: max-content;
+          /* max-width: 160px; */
+          width: 200px;
+          align-self: baseline;
+          font-size: medium;
+          margin-bottom: 0;
+        }
+        .wrapper {
+          justify-content: space-evenly;
+          align-items: center;
+          flex-direction: row;
+          width: 100%;
+        }
+        .field {
+          width: 50%;
+          height: fit-content;
+          align-self: center;
+        }
+
+        input[type="text"],
+        input[type="password"],
+        input[type="number"] {
+          width: 100%;
+        }
+
+        select {
+          width: min-content;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container" onclick="closePopup()">
+      <!-- event.stopPropagation() - чтобы по popup можно спокойно кликать и он не закроется -->
+      <div class="popup hide" onclick="event.stopPropagation()">
+        <form>
+          <h1 id="title">Форма</h1>
+          <br />
+
+          <div class="flexBox">
+            <div class="flexBox field">
+              <label for="userEmail"><b>*Электронная почта:</b></label>
+              <input
+                id="userEmail"
+                class="forma"
+                type="text"
+                placeholder="Введите почту"
+                name="email"
+                autocomplete="email"
+              />
+            </div>
+
+            <div class="flexBox field">
+              <label for="userPassword"><b>*Пароль:</b></label>
+              <input
+                id="userPassword"
+                class="forma"
+                type="password"
+                placeholder="Введите пароль"
+                name="psw"
+              />
+            </div>
+
+            <div class="flexBox field">
+              <label for="userPhone"><b>*Телефон:</b></label>
+              <input
+                id="userPhone"
+                class="forma"
+                type="number"
+                placeholder="79121234567"
+                name="phone"
+                autocomplete="mobile"
+              />
+            </div>
+            <div class="flexBox field">
+              <label for="userSex"><b>Пол:</b></label>
+              <select id="userSex" class="forma">
+                <option value="Мужчина">Мужчина</option>
+                <option value="Женщина">Женщина</option>
+                <option value="Другой">Другой</option>
+              </select>
+            </div>
+            <div>
+              <label for="userSms"><b>Отправить SMS?</b></label>
+              <input type="checkbox" id="userSms" class="forma" name="sms" />
+              <label for="userSms">да</label>
+              <!-- <input type="radio" id="userSmsN" name="sms" value="N" />
+              <label for="userSmsN">no</label> -->
+            </div>
+          </div>
+
+          <br />
+          <div class="btn wrapper">
+            <button type="submit" class="btn" onclick="sendForm(event)">
+              Отправить
+            </button>
+            <button type="button" class="btn cancel" onclick="closeForm()">
+              Закрыть
+            </button>
+          </div>
+        </form>
+      </div>
+      <button id="popup__toggle" onclick="toggle(event)">Начать</button>
+      <br />
+      <div class="formResults"></div>
+    </div>
+
+    <script>
+      let popup = document.querySelector(".popup");
+
+      // Обработка submit у формы
+      async function sendForm(e) {
+        e.preventDefault(); // не перезагружаем страницу
+
+        // Извлекаем данные из формы
+        const placeholder = [];
+        document
+          .querySelectorAll(".forma")
+          .forEach((data) => placeholder.push(data.value));
+        const [email, password, phone, sex] = [...placeholder];
+        const sms =
+          document.querySelectorAll(".forma")[4].checked === true
+            ? true
+            : false;
+
+        const obj = { email, password, phone, sex, sms };
+
+        // Если все обязательные поля заполнены
+        if (await formValidation(obj)) {
+          closeForm(); // Закрываем popup
+
+          // Формируем JSON
+          const json = JSON.stringify(obj, null, 4);
+          makeJson(json);
+        }
+      }
+
+      // Простая валидация
+      async function formValidation(obj) {
+        if (
+          obj.email.length == 0 ||
+          obj.password.length == 0 ||
+          obj.phone.length == 0
+        ) {
+          alert("❌Заполните все поля: Электронная почта, Пароль и Телефон!");
+          return false;
+        }
+        if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(obj.email)) {
+          alert("❌Некорректный адрес электронной почты!");
+          return false;
+        }
+        if (obj.password.length < 10) {
+          alert("❌Пароль должен содержать как минимум 10 символов!");
+          return false;
+        }
+        if (
+          !/^(?=.*\d)(?=.*[a-zA-Zа-яА-Я])(?=.*[!@#$%^&*()_+{}|:"<>?[\];',./]).{10,}$/.test(
+            obj.password
+          )
+        ) {
+          alert(
+            "❌Пароль должен содержать как минимум: 1 букву в верхнем регистре, 1 цифру, 1 особый символ!"
+          );
+          return false;
+        }
+        if (
+          !/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/.test(
+            obj.phone
+          )
+        ) {
+          alert("❌Некорректный номер телефона!");
+          return false;
+        }
+        alert("✅Валидация прошла успешно!");
+        return true;
+      }
+
+      // Показ popup
+      function toggle(e) {
+        e.stopPropagation(); // Разрешаем только событие Default
+        popup.classList.toggle("hide");
+        document.getElementById("popup__toggle").style.display = "none";
+        document.getElementsByClassName("container")[0].style.background =
+          "hsla(0, 0%, 0%, 0.5)";
+      }
+
+      // Закрытие popup при нажатии на поле вне popup
+      function closePopup() {
+        if (!popup.classList.contains("hide")) {
+          closeForm();
+        }
+      }
+
+      // Убираем popup
+      function closeForm() {
+        popup.classList.toggle("hide");
+        document.getElementById("popup__toggle").style.display = "block";
+        document.getElementsByClassName("container")[0].style.background =
+          "white";
+      }
+
+      // Отображаем JSON на главной странице
+      function makeJson(obj) {
+        // Очищаем поле с json-объектом
+        const results = document.querySelector(".formResults");
+        while (results.firstChild) {
+          results.removeChild(results.firstChild);
+        }
+
+        // Добавляем новый элемент с json на страницу
+        const newElem = document.createElement("div");
+        const newElemContent = document.createTextNode(`${obj}`);
+        newElem.appendChild(newElemContent);
+        results.appendChild(newElem);
+      }
+    </script>
+  </body>
+</html>
