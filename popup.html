@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Popup (html, css, js)</title>
     <style>
+      /* Использовал Автопрефиксер (https://autoprefixer.github.io/ru/) */
       :root {
         --main-font: "Open sans";
         --elem-margin: 1em;
@@ -20,16 +21,20 @@
         font-family: var(--main-font);
       }
       .container {
-        /* width: 100vw; */
         height: 100vh;
+        display: -webkit-box;
+        display: -ms-flexbox;
         display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: column;
         flex-direction: column;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
         justify-content: center;
       }
 
       .popup {
-        /* width: 100%; */
-        /* height: fit-content; */
         max-width: 500px;
         min-width: 250px;
         border: 3px double black;
@@ -40,6 +45,8 @@
       }
 
       button {
+        -ms-flex-item-align: center;
+        -ms-grid-row-align: center;
         align-self: center;
         background-color: var(--btn-color);
         border: 2px thin rgb(0, 0, 0);
@@ -63,15 +70,16 @@
         text-align: center;
       }
       .hide {
-        /* display: none; */
+        display: none;
       }
       .formResults {
         background-color: aqua;
+        -ms-flex-item-align: center;
+        -ms-grid-row-align: center;
         align-self: center;
         width: auto;
         font-weight: bold;
         padding: auto;
-        /* margin: auto; */
       }
       input,
       select {
@@ -101,19 +109,35 @@
       }
 
       .wrapper {
+        display: -webkit-box;
+        display: -ms-flexbox;
         display: flex;
 
+        -webkit-box-pack: center;
+
+        -ms-flex-pack: center;
+
         justify-content: center;
+        -ms-flex-item-align: center;
+        -ms-grid-row-align: center;
         align-self: center;
       }
 
       @media (min-width: 320px) {
         .flexBox {
+          display: -webkit-box;
+          display: -ms-flexbox;
           display: flex;
+          -webkit-box-orient: vertical;
+          -webkit-box-direction: normal;
+          -ms-flex-direction: column;
           flex-direction: column;
         }
 
         .wrapper {
+          -webkit-box-orient: vertical;
+          -webkit-box-direction: normal;
+          -ms-flex-direction: column;
           flex-direction: column;
         }
         .btn {
@@ -127,9 +151,17 @@
 
       @media (min-width: 580px) {
         .flexBox {
+          display: -webkit-box;
+          display: -ms-flexbox;
           display: flex;
+          -webkit-box-orient: horizontal;
+          -webkit-box-direction: normal;
+          -ms-flex-direction: row;
           flex-direction: row;
+          -webkit-box-flex: 2;
+          -ms-flex-positive: 2;
           flex-grow: 2;
+          -ms-flex-wrap: wrap;
           flex-wrap: wrap;
         }
 
@@ -138,22 +170,35 @@
         }
         .btn {
           padding: 5px;
+          width: -webkit-max-content;
+          width: -moz-max-content;
           width: max-content;
-          /* max-width: 160px; */
           width: 200px;
+          -ms-flex-item-align: baseline;
           align-self: baseline;
           font-size: medium;
           margin-bottom: 0;
         }
         .wrapper {
+          -webkit-box-pack: space-evenly;
+          -ms-flex-pack: space-evenly;
           justify-content: space-evenly;
+          -webkit-box-align: center;
+          -ms-flex-align: center;
           align-items: center;
+          -webkit-box-orient: horizontal;
+          -webkit-box-direction: normal;
+          -ms-flex-direction: row;
           flex-direction: row;
           width: 100%;
         }
         .field {
           width: 50%;
+          height: -webkit-fit-content;
+          height: -moz-fit-content;
           height: fit-content;
+          -ms-flex-item-align: center;
+          -ms-grid-row-align: center;
           align-self: center;
         }
 
@@ -164,6 +209,8 @@
         }
 
         select {
+          width: -webkit-min-content;
+          width: -moz-min-content;
           width: min-content;
         }
       }
@@ -224,8 +271,6 @@
               <label for="userSms"><b>Отправить SMS?</b></label>
               <input type="checkbox" id="userSms" class="forma" name="sms" />
               <label for="userSms">да</label>
-              <!-- <input type="radio" id="userSmsN" name="sms" value="N" />
-              <label for="userSmsN">no</label> -->
             </div>
           </div>
 
